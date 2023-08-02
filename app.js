@@ -45,7 +45,6 @@ app.get("/", (request, response) => {
                 completion: row.completion
             }
         });
-        console.log(tasks);
         response.render("index", {tasks});
     });
 });
@@ -78,5 +77,31 @@ app.post("/add", (request, response) => {
         );
     });
 });
+
+app.post("/delete", (request, response) => {
+    const form = request.body;
+    con.query("DELETE FROM tasks WHERE id = ?", [form.id], (error, result) => {
+        if (error) throw error;
+        response.json(true);
+    });
+});
+
+app.post("/update", (request, response) => {
+    const form = request.body;
+    let status = "";
+    if (form.status == true) {status = "checked"};
+    con.query(`UPDATE tasks SET completion = ? WHERE id = ?`, [status, form.id], (error, result) => {
+        if (error) throw error;
+        response.json(true);
+    });
+});
+
+app.post("/delete", (request, response) => {
+    const form = request.body;
+    con.query("DELETE FROM tasks WHERE id = ?", [form.id], (error, result) => {
+        if (error) throw error;
+        response.json(true);
+    })
+})
 
 app.listen(process.env.PORT || 8080, () => {console.log(`app running on http://localhost:8080`)});

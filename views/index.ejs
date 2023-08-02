@@ -12,19 +12,18 @@
         <div id="list-wrapper">
             <ul id="list">
                 <% for (let task of tasks) {%>
-                    <li>
+                    <li class="li" data-id="<%= task.id %>">
                         <div>
                             <h2><%= task.name %></h2>
                             <p><%= task.description %></p>
                         </div>
                         <div>
                             <form action="/update">
-                                <input type="checkbox" name="completion" <%= task.completion %> >
-                                <input type="hidden" name="task-id" value="<%= task.id %>">
+                                <input class="checkbox" type="checkbox" name="completion" data-id="<%= task.id %>" onclick="updateTask('<%= task.id %>');" <%= task.completion %>>
+                                <span></span>
                             </form>
                             <form action="/delete">
-                                <input type="button" value="delete">
-                                <input type="hidden" name="task-id" value="<%= task.id %>">
+                                <input type="button" value="delete" onclick="deleteTask('<%= task.id %>');">
                             </form>
                         </div>
                     </li>

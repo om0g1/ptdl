@@ -8,23 +8,63 @@ function addTask(task) {
     taskName.value = "";
     taskDescription.value = "";
     const taskTemplate = `
-            <li>
+            <li class="li" data-id="${task.id}">
                 <div>
                     <h2>${task.name}</h2>
                     <p>${task.description}</p>
                 </div>
                 <div>
                     <form action="/update">
-                        <input type="checkbox" name="completion" ${task.completion}>
-                        <input type="hidden" name="task-id" value="${task.id}">
+                        <input class="checkbox" type="checkbox" name="completion" data-id="${task.id}" onclick="updateTask('${task.id}');" ${task.completion}>
                     </form>
                     <form action="/delete">
-                        <input type="button" value="delete">
-                        <input type="hidden" name="task-id" value="${task.id}">
+                        <input type="button" value="delete" onclick="deleteTask('${task.id}');">
                     </form>
                 </div>
             </li>`
     list.innerHTML += taskTemplate;
+}
+
+function deleteTask(id) {
+    const task = document.querySelector(`.li[data-id="${id}"]`);
+    fetch("/delete", {
+        method: "POST",
+        body: JSON.stringify({id: id}),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then((response) => {
+        if (!response.ok) throw `Error: ${response.status}`;
+        return response.json();
+    })
+    .then(()=> {task.remove()})
+    .catch((error) => {
+        console.log(error);
+    })
+}
+
+function updateTask(id) {
+    const checkbox = document.querySelector(`.checkbox[data-id="${id}"]`);
+    const form = {
+        id: id,
+        status: checkbox.checked
+    }
+    fetch("/update", {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then((response) => {
+        if (!response.ok) throw `Error: ${response.status}`;
+        return response.json();
+    })
+    // .then((data) => {alert("Task successfully updated");})
+    .catch((error) => {
+        console.log(error);
+    })
 }
 
 addTaskBtn.onclick = () => {
