@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project to do list</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+    <h1>To do</h1>
+    <div id="panel">
+        <div id="list-wrapper">
+            <ul id="list">
+                <% for (let task of tasks) {%>
+                    <li>
+                        <div>
+                            <h2><%= task.name %></h2>
+                            <p><%= task.description %></p>
+                        </div>
+                        <div>
+                            <form action="/update">
+                                <input type="checkbox" name="completion" <%= task.completion %> >
+                                <input type="hidden" name="task-id" value="<%= task.id %>">
+                            </form>
+                            <form action="/delete">
+                                <input type="button" value="delete">
+                                <input type="hidden" name="task-id" value="<%= task.id %>">
+                            </form>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        <form id="list-input" action="/add" method="post">
+            <div>
+                <label for="task-name">Project Name</label>
+                <input type="text" name="task-name" id="task-name">
+            </div>
+            <div>
+                <label for="task-description">Description</label>
+                <input type="text" name="task-description" id="task-description">
+            </div>
+            <input type="button" id="add-task" value="add task">
+        </form>
+    </div>
+    <script src="/js/main.js" defer></script>
+</body>
+</html>

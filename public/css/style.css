@@ -1,0 +1,139 @@
+:root {
+    --medium-gap: 0.5rem;
+    --small-gap: calc(var(--medium-gap) / 2);
+    --very-small-gap: calc(var(--medium-gap) / 4);
+    --large-gap: calc(var(--medium-gap) * 2);
+    --very-large-gap: calc(var(--medium-gap) * 4);
+    --theme-blue: #00a4eb;
+    --primary-white: #fefefe;
+    --secondary-white: #fdfdfd;
+    --tertiary-white: #fcfcfc;
+    --primary-black: #101010;
+    --secondary-black: #303030;
+    --tertiary-black: #505050;
+    --edge-radius: 1rem;
+}
+
+@font-face {
+    font-family: Rounded;
+    src: url("/assets/fonts/rounded/MPLUSRounded1c-Regular.ttf");
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: var(--primary-white);
+    font-family: Rounded;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--very-large-gap);
+    overflow: hidden;
+    height: 100vh;
+    background-color: var(--primary-black);
+}
+
+#panel {
+    width: 70%;
+    height: 80%;
+    border-radius: var(--edge-radius);
+    display: flex;
+    flex-direction: column;
+    gap: var(--large-gap);
+}
+
+#panel> * {
+    border-radius: var(--edge-radius);
+}
+
+#list-wrapper {
+    width: 100%;
+    height: 80%;
+    background-color: var(--secondary-black);
+    padding: var(--large-gap);
+    overflow: hidden;
+}
+
+#list {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+#list li {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--tertiary-black);
+    border-radius: var(--edge-radius);
+    padding: var(--large-gap);
+}
+
+#list li h2 {
+    color: var(--theme-blue);
+}
+
+#list li div:nth-child(2) {
+    display: flex;
+    align-items: center;
+}
+
+#list li div:nth-child(2) form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#list-input {
+    padding: var(--large-gap);
+    width: 100%;
+    height: 20%;
+    background-color: var(--secondary-black);
+    display: grid;
+    gap: var(--medium-gap);
+    grid-template-columns: repeat(3, auto);
+}
+
+#list-input div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--small-gap);
+}
+
+#list-input div label {
+    font-weight: bold;
+}
+
+#list-input input[type="text"] {
+    border-radius: var(--edge-radius);
+    outline: transparent;
+    border: var(--theme-blue) solid 1px;
+    padding: var(--small-gap);
+    color: var(--primary-black);
+    caret-color: var(--tertiary-black);
+}
+
+#list-input input[type="button"] {
+    height: 100%;
+    justify-self: flex-end;
+    background-color: var(--theme-blue);
+    padding: var(--large-gap);
+    border: none;
+    cursor: pointer;
+}
